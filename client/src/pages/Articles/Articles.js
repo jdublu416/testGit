@@ -72,13 +72,13 @@ class Articles extends Component {
                 value={this.state.startYear}
                 onChange={this.handleInputChange}
                 name="startYear"
-                placeholder="YYYYMMDD (required)"
+                placeholder="start date YYYYMMDD (required)"
               />
               <Input
                 value={this.state.endYear}
                 onChange={this.handleInputChange}
                 name="endYear"
-                placeholder="YYYYMMDD (required)"
+                placeholder="end date YYYYMMDD (required)"
               />
               <FormBtn
                 disabled={

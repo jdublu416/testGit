@@ -1,8 +1,9 @@
 import axios from "axios";
 
 //get the base url for the api and the api key to unlock access
-const BASEURL = "https://api.giphy.com/v1/gifs/search?q=";
-const APIKEY = "&api_key=dc6zaTOxFJmzC&limit=20";
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key="+ nytAPI + "&q="+ topic + "&begin_date=" + startYear + "0101" + "&end_date=" + endYear;
+// let query= "";
+const APIKEY = "&api_key=2c059133ec67450c914b559907782919";
 
 
 export default {

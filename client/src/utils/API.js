@@ -1,20 +1,29 @@
 import axios from "axios";
 
+//get the base url for the api and the api key to unlock access
+const BASEURL = "https://api.giphy.com/v1/gifs/search?q=";
+const APIKEY = "&api_key=dc6zaTOxFJmzC&limit=20";
+
+
 export default {
-  // Gets all books
-  getBooks: function() {
-    return axios.get("/api/books");
+  // Gets all articles
+  search: function(query) {
+    return axios.get(BASEURL + query + APIKEY);
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+
+  getArticles: function() {
+    return axios.get("/api/articles");
   },
-  // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
+  // Gets the article with the given id
+  getArticles: function(id) {
+    return axios.get("/api/articles/" + id);
   },
-  // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
+  // Deletes the article with the given id
+  deleteArticles: function(id) {
+    return axios.delete("/api/articles/" + id);
+  },
+  // Saves an article to the database
+  saveArticles: function(articleData) {
+    return axios.post("/api/articles", articleData);
   }
 };

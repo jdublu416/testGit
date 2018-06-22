@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import DeleteBtn from "../../components/DeleteBtn";
+import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input,  FormBtn } from "../../components/Form";
 
 class Articles extends Component {
   state = {
@@ -27,8 +27,8 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  deleteArticle = id => {
-    API.deleteArticle(id)
+  SaveArticle = id => {
+    API.SaveArticle(id)
       .then(res => this.loadArticles())
       .catch(err => console.log(err));
   };
@@ -45,8 +45,8 @@ class Articles extends Component {
     if (this.state.topic && this.state.startYear && this.state.endYear) {
       API.saveArticle({
         title: this.state.title,
-        author: this.state.date,
-        synopsis: this.state.url
+        date: this.state.date,
+        url: this.state.url
       })
         .then(res => this.loadArticles())
         .catch(err => console.log(err));
@@ -55,11 +55,11 @@ class Articles extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid="true">
         <Row>
           <Col size="md-12">
             <Jumbotron>
-              <h1>Search</h1>
+              <h1>Search for Article</h1>
             </Jumbotron>
             <form>
               <Input
@@ -72,13 +72,13 @@ class Articles extends Component {
                 value={this.state.startYear}
                 onChange={this.handleInputChange}
                 name="startYear"
-                placeholder="start date YYYYMMDD (required)"
+                placeholder="start date YYYY (required)"
               />
               <Input
                 value={this.state.endYear}
                 onChange={this.handleInputChange}
                 name="endYear"
-                placeholder="end date YYYYMMDD (required)"
+                placeholder="end date YYYY (required)"
               />
               <FormBtn
                 disabled={
@@ -90,13 +90,13 @@ class Articles extends Component {
                 }
                 onClick={this.handleFormSubmit}
               >
-                Submit Book
+                Find Article
               </FormBtn>
             </form>
           </Col>
         </Row>
         <Row>
-          <Col size="md-6 sm-12">
+          <Col size="md-12 sm-12">
             <Jumbotron>
               <h1>Top 5 Results</h1>
             </Jumbotron>
@@ -110,8 +110,8 @@ class Articles extends Component {
                         Click to read full article {article.url}
                       </strong>
                     </Link>
-                    <DeleteBtn
-                      onClick={() => this.deleteArticle(article._id)}
+                    <SaveBtn
+                      onClick={() => this.SaveArticle(article._id)}
                     />
                   </ListItem>
                 ))}
@@ -121,6 +121,14 @@ class Articles extends Component {
             )}
           </Col>
         </Row>
+        <Row>
+          <Col size="md-12">
+          <Jumbotron>
+              <h1>Saved Articles</h1>
+            </Jumbotron>
+            </Col>
+            </Row>
+
       </Container>
     );
   }

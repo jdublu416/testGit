@@ -1,0 +1,14 @@
+nav{
+    background-image: url("/banner-nyt-building.jpg");
+    height: 250px;
+    text-align: center;
+    color:black;
+}
+#textContainer {
+    background-color: #d2cac7;
+    padding:5px;
+    border:2px solid #b6ada8;
+    border-radius: 15px;
+    margin:215px;
+}
+

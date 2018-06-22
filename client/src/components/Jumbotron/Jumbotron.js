@@ -2,8 +2,9 @@ import React from "react";
 
 const Jumbotron = ({ children }) => (
   <div
-    style={{ height: 200, clear: "both", paddingTop: 120, textAlign: "center", 
-    marginLeft: 25, marginRight:25 }}
+    style={{ height: 150, clear: "both", paddingTop: 50, textAlign: "center", 
+     backgroundColor:"#d2cac7"
+   }}
     className="jumbotron"
   >
     {children}

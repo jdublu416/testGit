@@ -1,8 +1,11 @@
 import axios from "axios";
+// let topic = "dogs";
+// let startYear=2012;
+// let endYear=2013;
 
 //get the base url for the api and the api key to unlock access
-const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key="+ nytAPI + "&q="+ topic + "&begin_date=" + startYear + "0101" + "&end_date=" + endYear;
-// let query= "";
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=";
+// const query = `${"&q="+topic+"&begin_date"+startYear+"1010"+"&end_date=" + endYear+"1231"}`;
 const APIKEY = "&api_key=2c059133ec67450c914b559907782919";
 
 
@@ -16,7 +19,7 @@ export default {
     return axios.get("/api/articles");
   },
   // Gets the article with the given id
-  getArticles: function(id) {
+  getArticlesId: function(id) {
     return axios.get("/api/articles/" + id);
   },
   // Deletes the article with the given id

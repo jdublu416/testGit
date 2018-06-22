@@ -8,7 +8,7 @@ class Detail extends Component {
   state = {
     article: {}
   };
-  // When this component mounts, grab the book with the _id of this.props.match.params.id
+  // When this component mounts, grab the article with the _id of this.props.match.params.id
   // e.g. localhost:3000/books/599dcb67f0f16317844583fc
   componentDidMount() {
     API.getArticle(this.props.match.params.id)
@@ -23,7 +23,7 @@ class Detail extends Component {
           <Col size="md-12">
             <Jumbotron>
               <h1>
-                {this.state.book.title} by {this.state.book.author}
+                {this.state.article.title} from {this.state.article.date}
               </h1>
             </Jumbotron>
           </Col>

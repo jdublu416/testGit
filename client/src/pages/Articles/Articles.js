@@ -10,7 +10,7 @@ import { Input,  FormBtn } from "../../components/Form";
 class Articles extends Component {
   state = {
     articles: [],
-    title: "",
+    topic: "",
     date: "",
     url: ""
   };
@@ -22,7 +22,7 @@ class Articles extends Component {
   loadArticles = () => {
     API.getArticles()
       .then(res =>
-        this.setState({ articles: res.data, title: "", date: "", url: "" })
+        this.setState({ articles: res.data, topic: "", date: "", url: "" })
       )
       .catch(err => console.log(err));
   };
@@ -43,13 +43,12 @@ class Articles extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.topic && this.state.startYear && this.state.endYear) {
-      API.saveArticle({
-        title: this.state.title,
-        date: this.state.date,
-        url: this.state.url
-      })
-        .then(res => this.loadArticles())
-        .catch(err => console.log(err));
+      API.search(`"&q=${this.state.topic}
+                   &begin_date=${this.state.startYear}0101
+                   &end_date=${this.state.endYear}1231`)
+               .then(res=>console.log(res))
+               .catch(err => console.log(err));
+
     }
   };
 
@@ -65,8 +64,8 @@ class Articles extends Component {
               <Input
                 value={this.state.topic}
                 onChange={this.handleInputChange}
-                name="title"
-                placeholder="Title (required)"
+                name="topic"
+                placeholder="topic (required)"
               />
               <Input
                 value={this.state.startYear}
@@ -81,13 +80,13 @@ class Articles extends Component {
                 placeholder="end date YYYY (required)"
               />
               <FormBtn
-                disabled={
-                  !(
-                    this.state.topic &&
-                    this.state.startYear &&
-                    this.state.endYear
-                  )
-                }
+                // disabled={
+                //   !(
+                //     this.state.topic &&
+                //     this.state.startYear &&
+                //     this.state.endYear
+                //   )
+                // }
                 onClick={this.handleFormSubmit}
               >
                 Find Article
@@ -106,7 +105,7 @@ class Articles extends Component {
                   <ListItem key={article._id}>
                     <Link to={"/articles/" + article._id}>
                       <strong>
-                        {article.title} from {article.date}
+                        {article.topic} from {article.date}
                         Click to read full article {article.url}
                       </strong>
                     </Link>

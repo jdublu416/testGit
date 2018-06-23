@@ -43,9 +43,7 @@ class Articles extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.topic && this.state.startYear && this.state.endYear) {
-      API.search(`"&q=${this.state.topic}
-                   &begin_date=${this.state.startYear}0101
-                   &end_date=${this.state.endYear}1231`)
+      API.search(`"&q=${this.state.topic}&begin_date=${this.state.startYear}0101&end_date=${this.state.endYear}1231`)
                .then(res=>console.log(res))
                .catch(err => console.log(err));
 

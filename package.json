@@ -12,6 +12,7 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
+ 
   "author": "",
   "license": "ISC",
   "devDependencies": {

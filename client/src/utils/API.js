@@ -6,7 +6,7 @@ import axios from "axios";
 //get the base url for the api and the api key to unlock access
 const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=";
 //const query = `${"&q="+topic+"&begin_date"+startYear+"1010"+"&end_date=" + endYear+"1231"}`;
-const APIKEY = "&api_key=2c059133ec67450c914b559907782919";
+const APIKEY = "&api_key=3515f28047c34171892692a81be4112b";
 
 
 export default {

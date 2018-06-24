@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SaveBtn from "../../components/SaveBtn";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
-import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input,  FormBtn } from "../../components/Form";
@@ -10,6 +9,7 @@ import { Input,  FormBtn } from "../../components/Form";
 class Articles extends Component {
   state = {
     articles: [],
+    results:[],
     topic: "",
     date: "",
     url: ""
@@ -59,6 +59,8 @@ class Articles extends Component {
                      date: article.pub_date,
                      title: article.headline.main
                    }
+                   this.setState({articles:articles});
+                   console.log("state",this.state.articles);
                   })    
                 }).catch(err => console.log(err));  
   };
@@ -110,7 +112,7 @@ class Articles extends Component {
             <Jumbotron>
               <h1>Top 5 Results</h1>
             </Jumbotron>
-            {this.state.articles.length ? (
+            {this.state.articles ? (
               <List>
                 {this.state.articles.map(article => (
                   <ListItem key={article._id}>

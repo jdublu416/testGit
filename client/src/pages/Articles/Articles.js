@@ -51,12 +51,16 @@ class Articles extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    if (this.state.topic && this.state.startYear && this.state.endYear) {
       API.search(`"&q=${this.state.topic}&begin_date=${this.state.startYear}0101&end_date=${this.state.endYear}1231`)
-               .then(res=>console.log(res))
-               .catch(err => console.log(err));
-
-    }
+               .then(res=>{
+                 let articles =res.data.response.docs.map(article =>{
+                   return{
+                     url: article.web_url,
+                     date: article.pub_date,
+                     title: article.headline.main
+                   }
+                  })    
+                }).catch(err => console.log(err));  
   };
 
   render() {
@@ -106,16 +110,10 @@ class Articles extends Component {
             <Jumbotron>
               <h1>Top 5 Results</h1>
             </Jumbotron>
-            {this.state.articles.length>0 ? (
+            {this.state.articles.length ? (
               <List>
                 {this.state.articles.map(article => (
                   <ListItem key={article._id}>
-                    <Link to={"/articles/" + article._id}>
-                      <strong>
-                        {article.topic} from {article.date}
-                        Click to read full article {article.url}
-                      </strong>
-                    </Link>
                     <SaveBtn
                       onClick={() => this.SaveArticle(article._id)}
                     />

@@ -13,18 +13,19 @@ mongoose.connect(
 );
 
 
-const articleSeed = [
-
-  {
-    title: "Born a Crime: Stories from a South African Childhood",
-    date: new Date(Date.now()),
-    url: "https://google.com"
-  }
-];
+db.Article.create(result)
+.then(function(dbArticle) {
+  // View the added result in the console
+  console.log(dbArticle);
+})
+.catch(function(err) {
+  // If an error occurred, send it to the client
+  return res.json(err);
+});
 
 db.Article
   .remove({})
-  .then(() => db.Article.collection.insertMany(API.res.data))
+  .then(() => db.Article.collection.insertMany(dbArticle))
   .then(data => {
     console.log(data.insertedIds.length + " records inserted!");
     process.exit(0);

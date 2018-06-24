@@ -27,6 +27,15 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
+  getAPI = (topic, yearStart, yearEnd) => {
+    API.search(topic, yearStart, yearEnd)
+      .then(res => {
+        const results = res.data.response.docs;
+        this.setState({ results });
+        console.log(results);
+      })
+      .catch(err => console.log(err));
+  };
   SaveArticle = id => {
     API.SaveArticle(id)
       .then(res => this.loadArticles())

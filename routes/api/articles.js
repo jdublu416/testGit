@@ -2,13 +2,18 @@ const router = require("express").Router();
 const articleController = require("../../controllers/articleController");
 
 // Matches with "/api/articles"
-router.route("/articles")
+router.route("/")
   .get(articleController.findAll)
   .post(articleController.create);
 
+router.route("/articles")
+  .get(articleController.findAll);
+  // .post(articleController.create)
+  // .put(articleController.update);
+
 // Matches with "/api/articles/:id"
 router
-  .route("/articles:id")
+  .route("/:id")
   .get(articleController.findById)
   .put(articleController.update)
   .delete(articleController.remove);

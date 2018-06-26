@@ -51,7 +51,7 @@ class Articles extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-      API.search(`"&q=${this.state.topic}&begin_date=${this.state.startYear}0101&end_date=${this.state.endYear}1231`)
+      API.search(`&q=${this.state.topic}&begin_date=${this.state.startYear}0101&end_date=${this.state.endYear}1231`)
                .then(res=>{
                  let articles =res.data.response.docs.map(article =>{
                    return{

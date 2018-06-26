@@ -24,6 +24,7 @@ export default {
 // },
 
   getArticles: function() {
+    console.log("getArticles");
     return axios.get("/api/articles");
   },
   // Gets the article with the given id

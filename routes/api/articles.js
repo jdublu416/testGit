@@ -3,13 +3,14 @@ const articleController = require("../../controllers/articleController");
 
 // Matches with "/api/articles"
 router.route("/")
-  .get(articleController.findAll);
-  // .post(articleController.create);
+  .get(articleController.findAll)
+  .post(articleController.create);
 
+  // Matches with "/api/articles"
 // router.route("/articles")
-//   .get(articleController.findAll);
-  // .post(articleController.create)
-  // .put(articleController.update);
+//   .get(articleController.findAll)
+//   .post(articleController.create)
+//   .put(articleController.update);
 
 // Matches with "/api/articles/:id"
 router

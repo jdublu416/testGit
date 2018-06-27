@@ -1,4 +1,6 @@
 .save-btn {
-  float: left;
-  color: #e74944;
+  float: right;
+  background-color:"#584942";
+  color:#96230c;
+  border: 1px solid #425258;
 }

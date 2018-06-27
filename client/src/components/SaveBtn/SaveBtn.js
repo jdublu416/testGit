@@ -3,11 +3,12 @@ import "./SaveBtn.css";
 
 
 const SaveBtn = props => (
-  <span className="save-btn"
+  <button className="btn save-btn"
    {...props}
+   style={{color:"#96230c"}}
    >
-   Save
-  </span>
+   Save for later
+  </button>
 );
 
 export default SaveBtn;

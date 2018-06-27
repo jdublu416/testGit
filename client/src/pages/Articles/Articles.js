@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SaveBtn from "../../components/SaveBtn";
+import DeleteBtn from "../../components/DeleteBtn"
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
@@ -9,7 +10,7 @@ import { Input,  FormBtn } from "../../components/Form";
 class Articles extends Component {
   state = {
     articles: [],
-    results:[],
+    savedArticles:[],
     topic: "",
     date: "",
     url: ""
@@ -21,26 +22,32 @@ class Articles extends Component {
 
   loadArticles = () => {
     API.getArticles()
-      .then(res =>
-        this.setState({ articles: res.data, topic: "", date: "", url: "" })
-      )
-      .catch(err => console.log(err));
-  };
-
-  getAPI = (topic, yearStart, yearEnd) => {
-    API.search(topic, yearStart, yearEnd)
-      .then(res => {
-        const results = res.data.response.docs;
-        this.setState({ results });
-        console.log(results);
+      .then(res =>{
+        this.setState({ savedArticles: res.data })
       })
       .catch(err => console.log(err));
   };
+
   SaveArticle = id => {
-    API.SaveArticle(id)
-      .then(res => this.loadArticles())
+    
+    API.saveArticle(this.state.articles.filter(article=> article.id===id)[0])
+      .then(res => {
+        this.setState({
+          articles: this.state.articles.filter(article => article.id !== id),
+          savedArticles: [...this.state.savedArticles, res.data]
+        
+      })
       .catch(err => console.log(err));
-  };
+  })
+};
+
+deleteArticle = (id) => {
+  console.log(id);
+  API.deleteArticle(id)
+    .then(()=> {this.loadArticles()})
+    .catch(err => console.log(err));
+};
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -55,13 +62,14 @@ class Articles extends Component {
                .then(res=>{
                  let articles =res.data.response.docs.map(article =>{
                    return{
+                     id: article._id,
                      url: article.web_url,
                      date: article.pub_date,
                      title: article.headline.main
                    }
-                   this.setState({articles:articles});
-                   console.log("state",this.state.articles);
-                  })    
+                  });    
+                  this.setState({articles:articles});
+                  console.log("state",this.state.articles);
                 }).catch(err => console.log(err));  
   };
 
@@ -112,12 +120,16 @@ class Articles extends Component {
             <Jumbotron>
               <h1>Top 5 Results</h1>
             </Jumbotron>
-            {this.state.articles ? (
+            {this.state.articles.length ? (
               <List>
-                {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
+                {this.state.articles.slice(0,5).map(article => (
+                  <ListItem key={article.id}>
+                    <h2>{article.title}</h2>
+                    <a target="_blank" href={article.url}><h3>Read the article, Click here!</h3></a>
+                    <h3>{article.date}</h3>
+                    
                     <SaveBtn
-                      onClick={() => this.SaveArticle(article._id)}
+                      onClick={() => this.SaveArticle(article.id)}
                     />
                   </ListItem>
                 ))}
@@ -131,9 +143,24 @@ class Articles extends Component {
           <Col size="md-12">
           <Jumbotron>
               <h1>Saved Articles</h1>
-            </Jumbotron>
-            </Col>
-            </Row>
+          </Jumbotron>
+          {this.state.savedArticles.length ? (
+              <List>
+                {this.state.savedArticles.map(article => (
+                  <ListItem key={article.id}>
+                    <h2>{article.title}</h2>
+                    <a href={article.url} target="_blank"><h2>Read the article, Click here!</h2></a>
+                    <DeleteBtn
+                      onClick={() => this.deleteArticle(article._id)}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <h3>No Results to Display</h3>
+            )}
+          </Col>
+          </Row>
 
       </Container>
     );
